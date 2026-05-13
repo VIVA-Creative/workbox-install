@@ -61,6 +61,8 @@ The installer needs admin rights to register a Windows service.
 .\install.ps1
 ```
 
+> Note: if Bob asks you to test with an alternate secrets file (e.g., during staging), you can pass `-EnvFile bob.env` as a parameter. For a normal production install, no parameter is needed.
+
 If PowerShell refuses with "execution of scripts is disabled," allow it once
 for this session:
 

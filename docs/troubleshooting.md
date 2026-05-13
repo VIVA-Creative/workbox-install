@@ -84,6 +84,18 @@ very slow to sync.
 
 ---
 
+### "Secrets file not found" but Box Drive is synced
+
+The installer defaults to looking for `rockville-workbox.env`. If you need
+to point at a different file:
+
+    .\install.ps1 -EnvFile bob.env
+
+Useful for staging tests where a separate secrets file lives in the same
+Box folder.
+
+---
+
 ## "TAILSCALE_AUTHKEY is still the placeholder"
 
 **What it means.** The `.env` file in Box still contains the literal string

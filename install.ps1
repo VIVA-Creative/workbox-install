@@ -31,7 +31,11 @@ param(
 
   # Skip the interactive Y/n confirmation banner at the end of pre-flight.
   # Useful for unattended re-runs once the operator has already approved.
-  [switch]$AssumeYes
+  [switch]$AssumeYes,
+
+  # Filename of the .env file inside the Box secrets folder.
+  # Defaults to rockville-workbox.env for production. Override with bob.env for staging tests.
+  [string]$EnvFile = "rockville-workbox.env"
 )
 
 Set-StrictMode -Version Latest
@@ -276,7 +280,7 @@ function Read-Secrets {
 
   $boxRoot   = "C:\Users\$BoxUser\Box"
   $secretDir = Join-Path $boxRoot "Bob Campbell Working Folder\VIVA Corner Projection\secrets"
-  $envFile   = Join-Path $secretDir "rockville-workbox.env"
+  $envFile   = Join-Path $secretDir $EnvFile
   Write-Host "  Expecting .env at: $envFile"
 
   if (-not (Test-Path $boxRoot)) {
@@ -292,11 +296,11 @@ function Read-Secrets {
   while ((Get-Date) -lt $deadline) {
     if (Test-Path $envFile) { $found = $true; break }
     $elapsed = [int]((Get-Date) - $deadline.AddMinutes(-5)).TotalSeconds
-    Write-Host "  Waiting for rockville-workbox.env to sync from Box... (elapsed $($elapsed)s)"
+    Write-Host "  Waiting for $EnvFile to sync from Box... (elapsed $($elapsed)s)"
     Start-Sleep -Seconds 5
   }
   if (-not $found) {
-    Fail "rockville-workbox.env did not appear within 5 minutes. Confirm Box Drive sync is active and the file exists in the secrets folder."
+    Fail "$EnvFile did not appear within 5 minutes. Confirm Box Drive sync is active and the file exists in the secrets folder."
   }
   Write-Ok ".env found"
 
