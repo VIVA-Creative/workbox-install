@@ -1,0 +1,28 @@
+# Never commit real secrets — the template is the only .env-shaped file allowed.
+.env
+.env.*
+!.env.template
+
+# Logs
+*.log
+logs/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# PowerShell ISE / VSCode local state
+*.ps1xml.bak
+PSScriptAnalyzerSettings.psd1.user
+
+# Local test scratch
+scratch/
+tmp/
